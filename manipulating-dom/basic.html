@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ title }}</p>
+        <p v-once>{{ once }}</p>
+        <input type="text" v-on:input="updateTitle">
+        <p>{{ callMethodInTemplate() }}</p>
+        <p>{{ accessDataVariableByMethod() }}</p>
+        <a v-bind:href="link">Google</a>
+        <p v-html="html"></p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            title: 'VueJS application',
+            dataVariable: 'Value of variable',
+            link: 'https://google.com.br',
+            once: 'Initial value',
+            html: '<a href="https://www.facebook.com">Facebook</a>'
+        },
+        methods: {
+            updateTitle(event){
+                this.once = 'Never updated because of "v-once"'
+                this.title = event.target.value
+            },
+            callMethodInTemplate(){
+                return 'Resul of a method'
+            },
+            accessDataVariableByMethod(){
+                return this.dataVariable
+            }
+        }
+    })
+</script>
+</html>
