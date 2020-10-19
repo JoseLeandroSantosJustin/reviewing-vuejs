@@ -1,0 +1,57 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <h2>#01</h2>
+    <template>
+        <button @click="ifValue = !ifValue">Switch if</button>
+        <p v-if="!ifValue">Now you see me</p>
+        <p v-else>Don't you see me now</p>
+        <button @click="ifShow = !ifShow">Switch show</button>
+        <p v-show="!ifShow">Now you see me</p>
+        <p v-show="ifShow">Don't you see me now</p>
+    </template>
+    <h2>#02</h2>
+    <template>
+        <ul>
+            <li v-for="(name, index) in names" style="list-style: none;">{{ index }}) {{ name }}</li>
+        </ul>
+    </template>
+    <h2>#03</h2>
+    <template>
+        <ul>
+            <li v-for="(value, key, index) in books" style="list-style: none;">{{ index }}) {{ key }}: {{ value }}</li>
+        </ul>
+    </template>
+    <h2>#04</h2>
+    <template v-for="value in students">
+        <template v-if="!Array.isArray(value)">
+            <p>{{ value }}<p>
+        </template>
+        <template v-else>
+            <ul>
+                <li v-for="grade in value" style="list-style: none;">{{ grade }}</li>
+            </ul>
+        </template>
+    </template>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            ifValue: false,
+            ifShow: false,
+            names: ['Jose', 'Maria', 'João'],
+            books: {
+                title: 'Lord of the Rings',
+                author: 'J.R.R. Tolkien',
+                volume: 3
+            },
+            students: {
+                id: 10,
+                name: 'Maria',
+                grades: [6.59,  8.69, 4.32, 7.44]
+            }
+        },
+    })
+</script>
