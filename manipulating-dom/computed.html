@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{ counter }}</p>
+        <p>{{ calcResult }}</p>
+        <button v-on:click="add">Add</button>
+        <button v-on:click="decrease">Decrease</button>
+        <hr>
+        <p>{{ unrelatedCounter }}</p>
+        <button v-on:click="justAnotherFunction">Unrelated function</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            result: '',
+            unrelatedCounter: 0
+        },
+        computed:{
+            calcResult(){
+                console.log('computed "calcResult" was called')
+                return this.counter <= 5 ? 'Result is less than 5' : 'Result is greater than 5'
+            }
+        },
+        methods: {
+            add(){
+                this.counter += 1
+            },
+            decrease(){
+                this.counter -= 1
+            },
+            // calcResult(){
+            //     console.log('"calcResult" was called')
+            //     return  this.counter <= 5 ? 'Result is less than 5' : 'Result is greater than 5'
+            // },
+            // Function unrelated to "calcResult" that will still call it if the method called within
+            // the DOM "calcResult" is not a computed property
+            justAnotherFunction(){
+                console.log('"justAnotherFunction" was called')
+                this.unrelatedCounter += 1;
+            }
+        }
+    })
+</script>
+</html>
