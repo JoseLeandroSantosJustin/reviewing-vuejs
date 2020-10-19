@@ -31,6 +31,16 @@
                 return this.counter <= 5 ? 'Result is less than 5' : 'Result is greater than 5'
             }
         },
+        watch: {
+            // Functions as a computed property, but accepts asynchronous values
+            // This will be watching for changes in the value to then trigger the function 
+            counter(newValue, oldValue) {
+                setTimeout(() => {
+                    console.log('Reset counter');
+                    this.counter = 0;
+                }, 3000)
+            }
+        },
         methods: {
             add(){
                 this.counter += 1
