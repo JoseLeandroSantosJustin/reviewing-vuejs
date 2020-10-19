@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+        .square {
+            background-color: red;
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        .shrink {
+            height: 50px;
+            width: 50px;
+        }
+
+        .spotlight {
+            background-color: green;
+            width: 200px;
+        }
+
+        .css1 {
+            background-color: gray;
+        }
+
+        .css2 {
+            font-size: 20px;
+        }
+
+        .progressBar {
+            margin: 12px 0 0 0;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>#01</h2>
+        <div>
+            <div class="square" :class="fristEffet"></div>
+            <button @click="startEffect">Apply CSS</button>
+        </div>
+        <hr>
+        <h2>#02</h2>
+        <div>
+            <button :class="['spotlight', 'shrink']"></button>
+        </div>
+        <hr>
+        <h2>#03</h2>
+        <div>
+            <div :class="applyEffect03">Choose CSS class => css1 - css2</div>
+            <input type="text" v-model="applyEffect03">
+        </div>
+        <hr>
+        <h2>#04</h2>
+        <div>
+            <div :class="applyEffect04 == 'true' ? effect04 : null">Choose CSS class => css1 - css2</div>
+            <input type="text" v-model="effect04" placeholder="Chose the classes"> <br>
+            <input type="text" v-model="applyEffect04" placeholder="Do you want to aplly? true">
+        </div>
+        <hr>
+        <h2>#05</h2>
+        <div>
+            <div :style="applyEffect05">Choose CSS styles</div>
+            <input type="text" v-model="applyEffect05">
+        </div>
+        <hr>
+        <h2>#06</h2>
+        <div>
+            <button @click="startProgress">Start progressbar</button>
+            <div class="progressBar">
+                <div class="progress" :style="{width: applyEffect06}"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            applyEffect01: false,
+            applyEffect03: '',
+            applyEffect04: '',
+            effect04: '',
+            applyEffect05: '',
+            applyEffect06: 0
+        },
+        computed:{
+            fristEffet(){
+                return {
+                    shrink: !this.applyEffect01,
+                    spotlight: this.applyEffect01
+                }
+            }
+        },
+        methods: {
+            startEffect(){
+                this.applyEffect01 = !this.applyEffect01
+            },
+            startProgress(){
+                let valor = 0
+                const time = setInterval(() => {
+                    valor += 5;
+                    this.applyEffect06 = `${valor}%`
+                    if(valor == 100) clearInterval(time)
+                }, 1000);
+            }
+        }
+    })
+</script>
+</html>
