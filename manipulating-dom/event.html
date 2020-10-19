@@ -1,0 +1,51 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <p>{{ contador }}</p>
+    <button v-on:click="add($event, 3)">Add</button>
+    <p v-on:mousemove="updateXY">
+        {{ x }} and {{ y }}
+        <span v-on:mousemove="stopPropagation">Stop Propagation of parent event</span>
+    </p>
+    <a v-on:click.prevent="" href="https://google.com">Google</a> <br>
+    <input v-on:keyup.enter.alt="showAlert" type="text"> <br>
+    <p>{{ initialValue }}</p>
+    <p>{{ bind }}</p>
+    <input v-bind:value="initialValue" v-on:keyup="fromVueJSToHTML($event)" type="text">
+    <p>{{ model }}</p>
+    <input v-model:keyup="model" type="text">
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            contador: 0,
+            x: 0,
+            y: 0,
+            initialValue: 'From HTML to VueJS',
+            bind: '',
+            model: ''
+        },
+        methods: {
+            add(event, value) {
+                console.log(event)
+                return this.contador += value
+            },
+            updateXY(event){
+                this.x = event.clientX;
+                this.y = event.clientY;
+            },
+            stopPropagation(event){
+                // It can be done using event modifier 'v-on:mousemove.stop'
+                event.stopPropagation()
+            },
+            showAlert(){
+                alert('Botão pressionado')
+            },
+            fromVueJSToHTML(event){
+                this.bind = 'From VueJS to HTML'
+            }
+        }
+    })
+</script>
