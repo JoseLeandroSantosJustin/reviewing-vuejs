@@ -1,0 +1,29 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<div id="app">
+    <calc></calc>
+    <calc></calc>
+    <calc></calc>
+    <calc></calc>
+</div>
+
+<script>
+    const calc = Vue.component('calc', {
+        template: `
+            <div>
+                {{ counter }}
+                <button @click="counter += 1">+</button>
+                <button @click="counter -= 1">-</button>
+            </div>
+        `,
+        data() {
+            return {
+                counter: 0
+            }
+        }
+    })
+
+    new Vue({
+        el: '#app'
+    })
+</script>
